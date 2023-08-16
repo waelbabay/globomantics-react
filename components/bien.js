@@ -1,6 +1,10 @@
 import deviseFormatter from "@/helpers/deviseFormatter";
+import { navigationContext } from "./app";
+import { useContext } from "react";
 
-const Bien = ({ bien }) => {
+const Bien = () => {
+  const { param: bien } = useContext(navigationContext);
+
   return (
     <>
       <div className="row">

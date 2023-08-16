@@ -3,7 +3,7 @@ import useBiens from "@/hooks/usebiens";
 import LoadingIndicator from "./loadingIndicator";
 import loadingStatus from "@/helpers/loadingStatus";
 
-const BiensList = ({ selectBien }) => {
+const BiensList = () => {
   const { biens, isLoading } = useBiens();
 
   if (isLoading)
@@ -32,11 +32,7 @@ const BiensList = ({ selectBien }) => {
         </thead>
         <tbody>
           {biens.map((bien) => (
-            <BienLigne
-              key={bien.id}
-              bien={bien}
-              selectBien={selectBien}
-            ></BienLigne>
+            <BienLigne key={bien.id} bien={bien}></BienLigne>
           ))}
         </tbody>
       </table>

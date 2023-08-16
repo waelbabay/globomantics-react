@@ -1,28 +1,28 @@
-import { useState } from "react";
-import BiensList from "./biensList";
-import Bien from "./bien";
+import React, { useCallback, useState } from "react";
+import navValues from "@/helpers/navValues";
+import ComponentPicker from "./componentPicker";
 
 const { default: Banner } = require("./banner");
 
-const App = () => {
-  const [selectedBien, setSelectedBien] = useState();
+const navigationContext = React.createContext(navValues.home);
 
-  const setSelectedBienWrapper = (bien) => {
-    setSelectedBien(bien);
-  };
+const App = () => {
+  const navigate = useCallback(
+    (navTo, param) => setNav({ current: navTo, param, navigate }),
+    []
+  );
+
+  const [nav, setNav] = useState({ current: navValues.home, navigate });
 
   return (
-    <>
+    <navigationContext.Provider value={nav}>
       <Banner>
         <div>Vente et location des maisons en France</div>
       </Banner>
-      {selectedBien ? (
-        <Bien bien={selectedBien}></Bien>
-      ) : (
-        <BiensList selectBien={setSelectedBienWrapper}></BiensList>
-      )}
-    </>
+      <ComponentPicker currentNavLocation={nav.current} />
+    </navigationContext.Provider>
   );
 };
 
+export { navigationContext };
 export default App;
